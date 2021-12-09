@@ -1,12 +1,12 @@
 import express from 'express';
-import GithubAccess from './services.js';
-import caching from './middleware/cache .js';
+import GithubApi from './services.js';
+import caching from './middleware/cache.js';
 
 const gitRouter = express.Router();
 
-gitRouter.get(`/listRepo/`, caching, async (req, res) => {
+gitRouter.get(`/listRepo`, caching, async (req, res) => {
     try {
-        const result = await GithubAccess.getRepositories(req);
+        const result = await GithubApi.getRepos(req);
 
         res.status(200).send(result);
     } catch (error) {

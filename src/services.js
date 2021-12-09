@@ -1,18 +1,19 @@
 import fetch from 'node-fetch';
-import dotenv from 'dotenv';
-dotenv.config();
-const GithubAccess = {
-    getRepositories: async (req) => {
-        const name = req.query.name;
-        const sortBy = req.query.sort;
-        const orderBy = req.query.order;
 
-        const repoSearchUrl = `https://api.github.com/search/repositories?q=${name}+in:name&sort=${sortBy}&order=${orderBy}`;
+const githubApi = {
+    getRepos: async (req) => {
+        const {name, sort, order, page, per_page} = req.query;
 
-        const fetchedApi = await fetch(repoSearchUrl);
+        //per_page is default 30 at github.api
+        const params = `?q=${name}+in:name&sort=${sort}&order=${order}&page=${page}&per_page=${per_page}`;
+
+        const baseUrl = `${process.env.BASE_URL}${params}`;
+
+        const fetchedApi = await fetch(baseUrl);
         const body = await fetchedApi.json();
-        return {body};
+
+        return body;
     },
 };
 
-export default GithubAccess;
+export default githubApi;
