@@ -1,5 +1,7 @@
 RUNNING THE FIRST TIME
 
+-Clone this repository
+
 -Install necessary dependencies
 
 -Start your app by command "npm run start"
